@@ -6,8 +6,9 @@ require_relative "tinkoff_client/payment/payment"
 
 module TinkoffClient
   class Error < StandardError; end
+
   include Payment
-  
+
   class << self
     attr_accessor :configuration
   end
@@ -23,5 +24,4 @@ module TinkoffClient
   def self.configure
     yield(configuration)
   end
-
 end
