@@ -8,14 +8,14 @@ Gem::Specification.new do |spec|
   spec.authors = ["netsky_prod"]
   spec.email = ["arenda244@ya.ru"]
 
-  spec.summary = "Write a short summary, because RubyGems requires one."
-  spec.description = "Write a longer description or delete this line."
-  #spec.homepage = "TODO: Put your gem's website or public repo URL here."
+  spec.summary = "Tinkoff Ruby API wrapper for payments and e2c payouts."
+  spec.description = "Tinkoff Ruby API wrapper for payments and e2c payouts."
+  spec.homepage = "https://netsky.dev/opensource/tinkoff_client"
   spec.required_ruby_version = ">= 2.6.0"
 
  # spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 # spec.metadata["homepage_uri"] = spec.homepage
- # spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
+  spec.metadata["source_code_uri"] = "https://github.com/netsky-dev/tinkoff_client"
  # spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
 
   # Specify which files should be added to the gem when it is released.
@@ -28,13 +28,13 @@ Gem::Specification.new do |spec|
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib", "lib/tinkoff_client"]
-  spec.files       = ["lib/tinkoff_client.rb", 
-                      "lib/tinkoff_client/version.rb", 
-                      "lib/tinkoff_client/configuration.rb",
-                      "lib/tinkoff_client/card_data.rb",
-                      "lib/tinkoff_client/requests.rb",
-                      "lib/tinkoff_client/payment/request.rb"
-                      "lib/tinkoff_client/payment/payment.rb"]
+  spec.files         = ["lib/tinkoff_client.rb", 
+                        "lib/tinkoff_client/version.rb", 
+                        "lib/tinkoff_client/configuration.rb",
+                        "lib/tinkoff_client/card_data.rb",
+                        "lib/tinkoff_client/requests.rb",
+                        "lib/tinkoff_client/payment/request.rb"
+                        "lib/tinkoff_client/payment/payment.rb"]
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"
