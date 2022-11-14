@@ -1,8 +1,7 @@
 # TinkoffClient
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/tinkoff_client`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Demo version of the release wrapper around the Tinkoff Bank API for payouts and payments
+in version 0.1.0, only payments work, starting from version 0.2.0, payments will also be added
 
 ## Installation
 
@@ -22,14 +21,61 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+in version 0.1.0 there is no automatic generator, so to get started, you need to add the file
+tinkoff_client.rb to your /config/initializers
+payment_terminal_key and payment_terminal_secret is required option for work!
+the rest are optional
 
-## Development
+```ruby
+TinkoffClient.configure do |c|
+    c.payment_public_key = "./public.key"
+	c.payment_terminal_key = ENV['TERMINAL_KEY']
+	c.payment_terminal_secret = ENV['TERMINAL_SECRET']
+end
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+using the gem is very easy!
+for example, the initialization of the payment looks like this
 
+```ruby
+TinkoffClient::Payment.init(Amount: "1000", OrderId: "1")
+```
+
+and every method return for you hash response for example method init return this
+```ruby
+{"Success"=>true,
+ "ErrorCode"=>"0",
+ "TerminalKey"=>"1111111111",
+ "Status"=>"NEW",
+ "PaymentId"=>"123456789",
+ "OrderId"=>"3331",
+ "Amount"=>1000,
+ "PaymentURL"=>"https://securepayments.tinkoff.ru/q2wER3t0"}
+ ```
+
+or something like this
+
+```ruby
+ {"Success"=>false, 
+ "ErrorCode"=>"9999", 
+ "Message"=>"Неверные параметры.", 
+ "Details"=>"Поле OrderId не должно быть пустым."}
+ ```
+
+in version 0.1.0 available methods
+```ruby
+TinkoffClient::Payment.init
+TinkoffClient::Payment.confirm
+TinkoffClient::Payment.get_state
+TinkoffClient::Payment.cancel
+TinkoffClient::Payment.check_order
+TinkoffClient::Payment.send_closing_receipt
+TinkoffClient::Payment.finish_authorize
+```
+
+see full trace params for request and returning response
+https://www.tinkoff.ru/kassa/develop/api/payments/
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/tinkoff_client.
+Bug reports and pull requests are welcome on GitHub at https://github.com/netsky-dev/tinkoff_client

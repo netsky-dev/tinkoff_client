@@ -7,6 +7,7 @@ RSpec.describe TinkoffClient do
 			c.payment_terminal_secret = ENV['TERMINAL_SECRET']
 		end
 
+    
     @init = TinkoffClient::Payment.init(Amount: "1000", OrderId: rand(1000...2000))
   end
 
