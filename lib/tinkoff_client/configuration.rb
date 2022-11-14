@@ -2,14 +2,13 @@
 
 module TinkoffClient
   class Configuration
-    attr_accessor :cert, :pkey, :terminal_key, :terminal_secret
+    attr_accessor :payment_public_key, :payment_terminal_key, :payment_terminal_secret
 
     def initialize
-      @cert = nil
-      @pkey = nil
-      @terminal_key = nil
-      @terminal_secret = nil
+      @payment_public_key = nil
+      @payment_terminal_key = nil
+      @payment_terminal_secret = nil
     end
-    
+
   end
 end

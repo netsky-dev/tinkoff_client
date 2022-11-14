@@ -27,7 +27,14 @@ Gem::Specification.new do |spec|
   end
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ["lib", "lib/tinkoff_client"]
+  spec.files       = ["lib/tinkoff_client.rb", 
+                      "lib/tinkoff_client/version.rb", 
+                      "lib/tinkoff_client/configuration.rb",
+                      "lib/tinkoff_client/card_data.rb",
+                      "lib/tinkoff_client/requests.rb",
+                      "lib/tinkoff_client/payment/request.rb"
+                      "lib/tinkoff_client/payment/payment.rb"]
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"
