@@ -22,9 +22,8 @@ Or install it yourself as:
 ## Usage
 
 Use for generate configuration file inside /config/initializers folders
-payment_terminal_key, payment_terminal_secret required options for work
-
-    $rails g tinkoff_client
+ 
+    $ rails g tinkoff_client
 
 ```ruby
 TinkoffClient.configure do |c|
@@ -34,6 +33,7 @@ TinkoffClient.configure do |c|
 end
 
 ```
+payment_terminal_key and payment_terminal_secret required options for work
 
 using the gem is very easy!
 for example, the initialization of the payment looks like this
