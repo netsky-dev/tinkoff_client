@@ -1,7 +1,7 @@
 # TinkoffClient
 
 Demo version of the release wrapper around the Tinkoff Bank API for payouts and payments
-in version 0.1.0, only payments work, starting from version 0.2.0, payments will also be added
+in version 0.1.0, only payments work, starting from version 0.2.0, payouts will also be added
 
 ## Installation
 
