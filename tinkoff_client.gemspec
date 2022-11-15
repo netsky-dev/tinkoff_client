@@ -34,7 +34,9 @@ Gem::Specification.new do |spec|
                 "lib/tinkoff_client/card_data.rb",
                 "lib/tinkoff_client/requests.rb",
                 "lib/tinkoff_client/payment/request.rb",
-                "lib/tinkoff_client/payment/payment.rb"]
+                "lib/tinkoff_client/payment/payment.rb",
+                "lib/tinkoff_client/generators/tinkoff_client_generator.rb",
+                "lib/tinkoff_client/generators/templates/tinkoff_client_template.rb"]
 
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "rspec", "~> 3.0"
@@ -43,7 +45,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "base64", "~> 0.1.1"
   spec.add_dependency "rest-client", "~> 2.1.0"
   spec.add_dependency "rake", "~> 13.0"
-
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
 end

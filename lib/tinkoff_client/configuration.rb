@@ -9,6 +9,5 @@ module TinkoffClient
       @payment_terminal_key = nil
       @payment_terminal_secret = nil
     end
-
   end
 end

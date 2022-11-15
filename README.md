@@ -21,10 +21,10 @@ Or install it yourself as:
 
 ## Usage
 
-in version 0.1.0 there is no automatic generator, so to get started, you need to add the file
-tinkoff_client.rb to your /config/initializers
-payment_terminal_key and payment_terminal_secret is required option for work!
-the rest are optional
+Use for generate configuration file inside /config/initializers folders
+payment_terminal_key, payment_terminal_secret required options for work
+
+    $rails g tinkoff_client
 
 ```ruby
 TinkoffClient.configure do |c|

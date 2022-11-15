@@ -70,11 +70,11 @@ RSpec.describe TinkoffClient::Payment do
   it "should TinkoffClient::Payment.finish_authorize return order Success status" do
     params = { PaymentId: @init["PaymentId"],
               Card: {
-																						PAN: 5545454545454545,
-																						ExpDate: 4545,
-																						CardHolder: "IVAN PETROV",
-																						CVV: "111",
-																				} }
+                      PAN: 5545454545454545,
+                      ExpDate: 4545,
+                      CardHolder: "IVAN PETROV",
+                      CVV: "111",
+                    } }
     result = TinkoffClient::Payment.finish_authorize(params)
     expect(result).not_to be nil
     expect(result).to include("Success")
