@@ -39,7 +39,7 @@ end
 ```
 payment_public_key is optional, others are required
 
-for example, the initialization of the payment looks like this
+If you do not have your own payment form, to make a payment, simply call the init method
 
 ```ruby
 TinkoffClient::Payment.init(Amount: "1000", OrderId: "1")
@@ -65,6 +65,37 @@ or something like this
  "Message"=>"Неверные параметры.", 
  "Details"=>"Поле OrderId не должно быть пустым."}
  ```
+
+For example, we want to make a purchase of a product, a simple implementation would look like this:
+```ruby
+#Suppose we have a product
+{"id"=>22,
+ "Name"=>"Наименование товара",
+ "Price"=>1000,
+ "Quantity"=>10}
+
+#User 
+{"id"=>1,
+ "Email"=>"a@test.ru",
+ "Phone"=>"+79031234567"}
+
+#And order 
+{"id"=>5,
+ "User_id"=>1,
+ "Product_id"=>22,
+ "Paid"=>false}
+
+#Implementing the logic for getting a payment link
+def create
+ order = order.find(params[:order_id]) #search and call our order
+ product = order.product #call the product
+ result = TinkoffClient::Payment.init(Amount: product.amount, OrderId: order.id) #call init method
+ if result["Success"] #in case Success(with boolean data type) will return true
+   redirect_to result["PaymentURL"] #send via link to payment form
+ end
+end
+
+```
 
 in version 0.2.0 available methods
 
