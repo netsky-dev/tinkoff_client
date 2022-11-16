@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "./request"
-require_relative "../card_data"
+require_relative "./card_data"
 
 module TinkoffClient
   module Payment

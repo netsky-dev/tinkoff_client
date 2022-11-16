@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative "../requests"
+require_relative "../send_request"
 
 module TinkoffClient
   module Payment
     class Request
-      include Requests
+      include SendRequest
 
       attr_reader :url
 
@@ -16,6 +16,17 @@ module TinkoffClient
       def self.request(*args, &block)
         params = args[0]
         new(*args, &block).request(path: params[:path], keys: params[:keys])
+      end
+
+      def init_params(keys)
+        payload = {
+          TerminalKey: TinkoffClient.configuration.payment_terminal_key,
+          Password: TinkoffClient.configuration.payment_terminal_secret,
+          **keys,
+        }
+
+        payload[:Token] = generate_token(payload)
+        payload.except(:Password)
       end
 
       def generate_token(keys)
