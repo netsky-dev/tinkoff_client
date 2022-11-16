@@ -31,10 +31,13 @@ Gem::Specification.new do |spec|
   spec.files = ["lib/tinkoff_client.rb",
                 "lib/tinkoff_client/version.rb",
                 "lib/tinkoff_client/configuration.rb",
-                "lib/tinkoff_client/card_data.rb",
-                "lib/tinkoff_client/requests.rb",
+                "lib/tinkoff_client/send_request.rb",
+                "lib/tinkoff_client/payment/encrypt_card_data.rb",
                 "lib/tinkoff_client/payment/request.rb",
                 "lib/tinkoff_client/payment/payment.rb",
+                "lib/tinkoff_client/payout/request.rb",
+                "lib/tinkoff_client/payout/payout.rb",
+                "lib/tinkoff_client/payout/encrypt_data.rb",
                 "lib/tinkoff_client/generators/tinkoff_client_generator.rb",
                 "lib/tinkoff_client/generators/templates/tinkoff_client_template.rb"]
 
@@ -45,6 +48,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "base64", "~> 0.1.1"
   spec.add_dependency "rest-client", "~> 2.1.0"
   spec.add_dependency "rake", "~> 13.0"
+  spec.add_dependency "webdrivers", "~> 5.0"
+  spec.add_dependency "selenium-webdriver", "~> 4.6.1"
+
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
 end

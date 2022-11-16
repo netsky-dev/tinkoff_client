@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require_relative "./request"
-require_relative "./card_data"
+require_relative "./encrypt_card_data"
 
 module TinkoffClient
   module Payment
-    extend CardData
+    extend EncryptCardData
 
     def self.init(keys)
       Request.request(path: "Init", keys: keys)

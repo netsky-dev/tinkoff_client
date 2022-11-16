@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "pry"
+
 RSpec.describe TinkoffClient do
   before do
     TinkoffClient.configure do |c|

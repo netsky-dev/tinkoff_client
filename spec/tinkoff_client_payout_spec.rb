@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require "pry"
 require "rest-client"
 require_relative "./e2e/e2e"
 

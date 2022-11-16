@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require "pry"
+
 RSpec.describe TinkoffClient::Payment do
-  before do
+  before(:all) do
     TinkoffClient.configure do |c|
       c.payment_public_key = File.read(ENV["PUBLIC_KEY"])
       c.payment_terminal_key = ENV["TERMINAL_KEY"]
