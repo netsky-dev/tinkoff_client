@@ -125,6 +125,8 @@ TinkoffClient::Payout.get_state
 
 ```
 
+see full docs https://netsky.dev/opensource/tinkoff_client
+
 
 see full trace params for request and returning response
 https://www.tinkoff.ru/kassa/develop/api/payments/
