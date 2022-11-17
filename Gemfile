@@ -12,5 +12,8 @@ gem "pry", "~> 0.14.1"
 gem "openssl", "~> 3.0.1"
 gem "base64", "~> 0.1.1"
 gem "rest-client", "~> 2.1.0"
-gem "webdrivers", "~> 5.0"
-gem "selenium-webdriver", "~> 4.6.1"
+
+group :test do
+  gem "webdrivers", "~> 5.0"
+  gem "selenium-webdriver", "~> 4.6.1"
+end
