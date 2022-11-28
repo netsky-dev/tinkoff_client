@@ -29,6 +29,7 @@ module TinkoffClient
           X509SerialNumber: data[:x509_serial_number],
           **keys,
         }
+
       end
     end
   end

@@ -8,9 +8,11 @@ module TinkoffClient
     extend EncryptCardData
 
     # Метод создает платеж: продавец получает ссылку на платежную форму и должен перенаправить по ней покупателя
-    # @param [Integer] Amount
+    #
+    # Полный список параметров https://www.tinkoff.ru/kassa/develop/api/payments/init-request/
+    #
+    # @param [Number] Amount
     # @param [String] OrderId
-    #   *  Полный список параметров https://www.tinkoff.ru/kassa/develop/api/payments/init-request/
     # @return [Hash]
     #   *
     #       {"Success"=>true,
@@ -39,21 +41,61 @@ module TinkoffClient
     #  {"id"=>5,
     #  "user_id"=>1,
     #  "product_id"=>22,
-    #  "paid"=>false}
+    #  "paid"=>false,
+    #  "payment_id"=>nil}
     #
-    #  #Реализация логики получения платежной ссылки
+    #  #Простая реализация логики получения платежной ссылки
     #  def create
     #    order = order.find(params[:order_id]) #Объявляем наш order
     #    product = order.product #Объявляем продукт
     #    result = TinkoffClient::Payment.init(Amount: product.amount, OrderId: order.id) #Вызываем наш init метод
     #    if result["Success"] #в случае, если Success (boolean) вернет true
+    #      order.update(:order_params)
     #      redirect_to result["PaymentURL"] #Отправляем пользователя по ссылке на форму оплаты
     #    end
     #  end
-    def self.init(keys)
+    # 
+    #  private
+    #  def order_params
+    #   params.transform_keys(&:underscore).permit(:payment_id)#Трансформируем ответ из Snake в Camel и пермитим его
+    #  end
+    # @see https://www.tinkoff.ru/kassa/develop/api/payments/init-request/
+    # @see get_state
+    def self.init(keys)      
       Request.request(path: "Init", keys: keys)
     end
 
+    # Метод подтверждает платеж передачей реквизитов, а также списывает средства с карты покупателя при одностадийной оплате и блокирует указанную сумму при двухстадийной.
+    # Используется, если у площадки есть сертификация PCI DSS и собственная платежная форма.
+    #
+    # Полный список параметров https://www.tinkoff.ru/kassa/develop/api/payments/confirm-request/
+    #
+    # @param [Number] PaymentId
+    # @return [Hash]
+    #   *
+    #       {"Success"=>true,
+    #       "ErrorCode"=>"0",
+    #       "TerminalKey"=>"1111111111",
+    #       "Status"=>"CONFIRMED",
+    #       "PaymentId"=>"123456789",
+    #       "OrderId"=>"3331"}
+    # @example
+    #
+    #  #Order
+    #  {"id"=>5,
+    #  "user_id"=>1,
+    #  "product_id"=>22,
+    #  "paid"=>false,
+    #  "payment_id"=>"123456789"} #Payment id получен в методе init
+    #
+    #  #Простая реализация логики получения платежной ссылки
+    #  def create
+    #    order = order.find(params[:order_id]) #Объявляем наш order
+    #    result = TinkoffClient::Payment.confirm(PaymentId: order.payment_id) #Вызываем наш init confirm
+    #  end
+    # 
+    # @see https://www.tinkoff.ru/kassa/develop/api/payments/init-request/
+    # @see get_state
     def self.confirm(keys)
       Request.request(path: "Confirm", keys: keys)
     end

@@ -3,11 +3,15 @@
 RSpec.describe TinkoffClient do
   before do
     TinkoffClient.configure do |c|
-      c.payment_terminal_key = ENV["TERMINAL_KEY"]
-      c.payment_terminal_secret = ENV["TERMINAL_SECRET"]
-    end
+      c.payment_public_key = "./public.key"
+      c.payment_terminal_key = "1111111111"
+      c.payment_terminal_secret = "1111111111"
 
-    @init = TinkoffClient::Payment.init(Amount: "1000", OrderId: rand(1000...2000))
+      c.payout_terminal_key = "1111111111"
+      c.payout_terminal_secret = "1111111111"
+      c.payout_certificate = "./open-api-cert.pem"
+      c.payout_private_key = "./private.key"
+    end
   end
 
   it "has a version number" do
@@ -15,12 +19,13 @@ RSpec.describe TinkoffClient do
   end
 
   it "should TinkoffClient.configure work and configuration not to be nil" do
-    TinkoffClient.configure do |c|
-      c.payment_terminal_key = ENV["TERMINAL_KEY"]
-      c.payment_terminal_secret = ENV["TERMINAL_SECRET"]
-    end
-
+    expect(TinkoffClient.configuration.payment_public_key).not_to be nil
     expect(TinkoffClient.configuration.payment_terminal_key).not_to be nil
     expect(TinkoffClient.configuration.payment_terminal_secret).not_to be nil
+    expect(TinkoffClient.configuration.payout_terminal_key).not_to be nil
+    expect(TinkoffClient.configuration.payout_terminal_secret).not_to be nil
+    expect(TinkoffClient.configuration.payout_certificate).not_to be nil
+    expect(TinkoffClient.configuration.payout_private_key).not_to be nil
+
   end
 end

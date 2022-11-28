@@ -1,84 +1,62 @@
 # frozen_string_literal: true
 require "rest-client"
-require_relative "./e2e/e2e"
 
 RSpec.describe TinkoffClient::Payout do
-  before(:all) do
-    TinkoffClient.configure do |c|
-      c.payout_terminal_key = ENV["PAYOUT_TERMINAL_KEY"]
-      c.payout_terminal_secret = ENV["PAYOUT_TERMINAL_SECRET"]
-      c.payout_certificate = "./open-api-cert.pem"
-      c.payout_private_key = "./private.key"
-    end
 
-    @customer = TinkoffClient::Payout.add_customer(CustomerKey: "1000")
+  let(:mock) { double(TinkoffClient::Payout) }
 
-    @e2e = E2E.new
+  it "calls the add_customer method with the correct arguments" do
+    params = {CustomerKey: "1000"}
+    expect(mock).to receive(:add_customer).with(params)
+    mock.add_customer(params)
   end
 
-  after(:all) do
-    TinkoffClient::Payout.remove_customer(CustomerKey: "1000")
+  it "calls the get_customer method with the correct arguments" do
+    params = {CustomerKey: "1000"}
+    expect(mock).to receive(:get_customer).with(params)
+    mock.get_customer(params)
   end
 
-  it "should TinkoffClient::Payout.add_customer return customer" do
-    expect(@customer).not_to be nil
-    expect(@customer["Success"]).to eq(true)
+  it "calls the add_card method with the correct arguments" do
+    params = {CustomerKey: "1000"}
+    expect(mock).to receive(:add_card).with(params)
+    mock.add_card(params)
   end
 
-  it "should TinkoffClient::Payout.get_customer return customer" do
-    result = TinkoffClient::Payout.get_customer(CustomerKey: "1000")
-    expect(result).not_to be nil
-    expect(result["Success"]).to eq(true)
-    expect(result["CustomerKey"]).to eq("1000")
+  it "calls the get_card_list method with the correct arguments" do
+    params = {CustomerKey: "1000"}
+    expect(mock).to receive(:get_card_list).with(params)
+    mock.get_card_list(params)
   end
 
-  it "should TinkoffClient::Payout.add_card return link for card adding" do
-    result = TinkoffClient::Payout.add_card(CustomerKey: "1000")
-    @e2e.add_card(path: result["PaymentURL"])
-    expect(result).not_to be nil
-    expect(result["Success"]).to eq(true)
-    expect(result["PaymentURL"]).not_to be nil
+  it "calls the init method with the correct arguments" do
+    params = {CustomerKey: "1000", OrderId: "supertest1", Amount: "333", CardId: "1"}
+    expect(mock).to receive(:init).with(params)
+    mock.init(params)
   end
 
-  let(:cards) { TinkoffClient::Payout.get_card_list(CustomerKey: "1000") }
-  it "should TinkoffClient::Payout.get_card_list return cards array" do
-    expect(cards).not_to be nil
-    expect(cards).to be_instance_of(Array)
-    expect(cards).not_to be_empty
+  it "calls the get_state method with the correct arguments" do
+    params = {PaymentId: "1000"}
+    expect(mock).to receive(:get_state).with(params)
+    mock.get_state(params)
   end
 
-  let(:payment) { TinkoffClient::Payout.init(CustomerKey: "1000", OrderId: "supertest1", Amount: "333", CardId: cards[0]["CardId"]) }
-  it "should TinkoffClient::Payout.init return payment with status checked" do
-    expect(payment).not_to be nil
-    expect(payment["Success"]).to eq(true)
-    expect(payment["Status"]).to eq("CHECKED")
+  it "calls the payment method with the correct arguments" do
+    params = {PaymentId: "1000"}
+    expect(mock).to receive(:payment).with(params)
+    mock.payment(params)
   end
 
-  it "should TinkoffClient::Payout.get_state return payment with status" do
-    result = TinkoffClient::Payout.get_state(PaymentId: payment["PaymentId"])
-    expect(result).not_to be nil
-    expect(result["Success"]).to eq(true)
-    expect(result["Status"]).to eq("CHECKED")
+  it "calls the remove_card method with the correct arguments" do
+    params = {CustomerKey: "1000", CardId: "1"}
+    expect(mock).to receive(:remove_card).with(params)
+    mock.remove_card(params)
   end
 
-  it "should TinkoffClient::Payout.payment return response with status COMPLETED" do
-    result = TinkoffClient::Payout.payment(PaymentId: payment["PaymentId"])
-    expect(result).not_to be nil
-    expect(result["Success"]).to eq(true)
-    expect(result["PaymentId"]).to eq(payment["PaymentId"])
-    expect(result["Status"]).to eq("COMPLETED")
+  it "calls the remove_customer method with the correct arguments" do
+    params = {CustomerKey: "1000"}
+    expect(mock).to receive(:remove_customer).with(params)
+    mock.remove_customer(params)
   end
 
-  it "should TinkoffClient::Payout.remove_card return card with D status" do
-    result = TinkoffClient::Payout.remove_card(CustomerKey: "1000", CardId: cards[0]["CardId"])
-    expect(result).not_to be nil
-    expect(result["CardId"]).to eq(cards[0]["CardId"])
-    expect(result["Status"]).to eq("D")
-  end
-
-  it "should TinkoffClient::Payout.remove_customer return response" do
-    result = TinkoffClient::Payout.remove_customer(CustomerKey: "1000")
-    expect(result).not_to be nil
-    expect(result["Success"]).to eq(true)
-  end
 end
