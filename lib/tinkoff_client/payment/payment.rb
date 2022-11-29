@@ -60,7 +60,6 @@ module TinkoffClient
     #   params.transform_keys(&:underscore).permit(:payment_id)#Трансформируем ответ из Snake в Camel и пермитим его
     #  end
     # @see https://www.tinkoff.ru/kassa/develop/api/payments/init-request/
-    # @see get_state
     def self.init(keys)      
       Request.request(path: "Init", keys: keys)
     end
@@ -88,22 +87,88 @@ module TinkoffClient
     #  "paid"=>false,
     #  "payment_id"=>"123456789"} #Payment id получен в методе init
     #
-    #  #Простая реализация логики получения платежной ссылки
     #  def create
     #    order = order.find(params[:order_id]) #Объявляем наш order
-    #    result = TinkoffClient::Payment.confirm(PaymentId: order.payment_id) #Вызываем наш init confirm
+    #    result = TinkoffClient::Payment.confirm(PaymentId: order.payment_id) #Вызываем наш confirm
     #  end
     # 
-    # @see https://www.tinkoff.ru/kassa/develop/api/payments/init-request/
-    # @see get_state
+    # @see https://www.tinkoff.ru/kassa/develop/api/payments/confirm-description/
+    # @see init
     def self.confirm(keys)
       Request.request(path: "Confirm", keys: keys)
     end
 
+
+    # Метод возвращает текущий статус платежа.
+    #
+    # Полный список параметров https://www.tinkoff.ru/kassa/develop/api/payments/getstate-description/
+    #
+    # @param [Number] PaymentId
+    # @return [Hash]
+    #   *
+    #  {
+    #   "Success"=>true,
+    #   "ErrorCode"=>"0",
+    #   "Message"=>"OK",
+    #   "TerminalKey"=>"TinkoffBankTest",
+    #   "Status"=>"CONFIRMED",
+    #   "PaymentId"=>"2304882",
+    #   "OrderId"=>"#419",
+    #   "Amount"=>1000
+    #   }
+    # @example
+    #
+    #  #Order
+    #  {"id"=>5,
+    #  "user_id"=>1,
+    #  "product_id"=>22,
+    #  "paid"=>false,
+    #  "payment_id"=>"123456789"} #Payment id получен в методе init
+    #
+    #  def create
+    #    order = order.find(params[:order_id]) #Объявляем наш order
+    #    result = TinkoffClient::Payment.get_state(PaymentId: order.payment_id) #Вызываем наш get_state
+    #  end
+    # 
+    # @see https://www.tinkoff.ru/kassa/develop/api/payments/getstate-description/
+    # @see init
     def self.get_state(keys)
       Request.request(path: "GetState", keys: keys)
     end
 
+    # Метод отменяет платеж.
+    #
+    # Полный список параметров https://www.tinkoff.ru/kassa/develop/api/payments/cancel-description/
+    #
+    # @param [Number] PaymentId
+    # @return [Hash]
+    #   *
+    #  {
+    #   "Success"=>true,
+    #   "ErrorCode"=>"0",
+    #   "Message"=>"OK",
+    #   "TerminalKey"=>"TinkoffBankTest",
+    #   "Status"=>"CONFIRMED",
+    #   "PaymentId"=>"2304882",
+    #   "OrderId"=>"#419",
+    #   "Amount"=>1000
+    #   }
+    # @example
+    #
+    #  #Order
+    #  {"id"=>5,
+    #  "user_id"=>1,
+    #  "product_id"=>22,
+    #  "paid"=>false,
+    #  "payment_id"=>"123456789"} #Payment id получен в методе init
+    #
+    #  def create
+    #    order = order.find(params[:order_id]) #Объявляем наш order
+    #    result = TinkoffClient::Payment.cancel(PaymentId: order.payment_id) #Вызываем наш cancel
+    #  end
+    # 
+    # @see https://www.tinkoff.ru/kassa/develop/api/payments/getstate-description/
+    # @see init
     def self.cancel(keys)
       Request.request(path: "Cancel", keys: keys)
     end

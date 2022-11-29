@@ -3,7 +3,7 @@
 RSpec.describe TinkoffClient do
   before do
     TinkoffClient.configure do |c|
-      c.payment_public_key = "./public.key"
+      c.payment_public_key = "./public.pem"
       c.payment_terminal_key = "1111111111"
       c.payment_terminal_secret = "1111111111"
 

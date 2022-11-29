@@ -11,3 +11,4 @@
 .rspec_status
 open-api-cert.pem
 private.key
+public.pem
