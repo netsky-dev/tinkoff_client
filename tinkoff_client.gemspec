@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Tinkoff Ruby API wrapper for payments and e2c payouts."
   spec.description = "Tinkoff Ruby API wrapper for payments and e2c payouts."
-  spec.homepage = "https://netsky.dev/opensource/tinkoff_client"
+  spec.homepage = "https://rubygems.org/gems/tinkoff_client/"
   spec.required_ruby_version = ">= 2.6.0"
 
   # spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
