@@ -97,7 +97,7 @@ TinkoffClient::Payout.get_state
 
 
 See full docs
-[Payment](https://www.rubydoc.info/gems/tinkoff_client/0.3.0).
+[Payment](https://www.rubydoc.info/gems/tinkoff_client/0.3.0/TinkoffClient/Payment).
 
 See full trace params for request and returning response
 https://www.tinkoff.ru/kassa/develop/api/payments/
