@@ -66,38 +66,10 @@ or something like this
  "Details"=>"Поле OrderId не должно быть пустым."}
  ```
 
-For example, we want to make a purchase of a product, a simple implementation would look like this:
-```ruby
-#Suppose we have a product
-{"id"=>22,
- "Name"=>"Наименование товара",
- "Price"=>1000,
- "Quantity"=>10}
+See full docs
+[Payment](https://www.rubydoc.info/gems/tinkoff_client/0.2.0/TinkoffClient/Payment).
 
-#User 
-{"id"=>1,
- "Email"=>"a@test.ru",
- "Phone"=>"+79031234567"}
-
-#And order 
-{"id"=>5,
- "User_id"=>1,
- "Product_id"=>22,
- "Paid"=>false}
-
-#Implementing the logic for getting a payment link
-def create
- order = order.find(params[:order_id]) #search and call our order
- product = order.product #call the product
- result = TinkoffClient::Payment.init(Amount: product.amount, OrderId: order.id) #call init method
- if result["Success"] #in case Success(with boolean data type) will return true
-   redirect_to result["PaymentURL"] #send via link to payment form
- end
-end
-
-```
-
-in version 0.2.0 available methods
+in version 0.3.0 available methods
 
 for Payment:
 ```ruby
@@ -125,7 +97,6 @@ TinkoffClient::Payout.get_state
 
 ```
 
-see full docs https://netsky.dev/opensource/tinkoff_client
 
 
 see full trace params for request and returning response
