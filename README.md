@@ -66,9 +66,7 @@ or something like this
  "Details"=>"Поле OrderId не должно быть пустым."}
  ```
 
-See full docs
-[Payment](https://www.rubydoc.info/gems/tinkoff_client/0.2.0/TinkoffClient/Payment).
-
+ 
 in version 0.3.0 available methods
 
 for Payment:
@@ -98,8 +96,10 @@ TinkoffClient::Payout.get_state
 ```
 
 
+See full docs
+[Payment](https://www.rubydoc.info/gems/tinkoff_client/0.3.0).
 
-see full trace params for request and returning response
+See full trace params for request and returning response
 https://www.tinkoff.ru/kassa/develop/api/payments/
 ## Contributing
 
